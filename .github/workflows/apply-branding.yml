@@ -1,0 +1,33 @@
+name: Apply FS branding
+on:
+  push:
+    paths:
+      - 'favicon.svg'
+      - '.github/workflows/apply-branding.yml'
+permissions:
+  contents: write
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply favicon and sidebar logo
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          if 'rel="icon"' not in s:
+              s=s.replace('<title>FS</title>', '<title>FS</title>\n<link rel="icon" type="image/svg+xml" href="favicon.svg">\n<link rel="apple-touch-icon" href="favicon.svg">')
+          s=s.replace('<div class="logo">R</div>', '<div class="logo"><img src="favicon.svg" alt="FS"></div>')
+          if '.logo img{' not in s:
+              s=s.replace('</style>', '.logo{background:#05070d;overflow:hidden;padding:0}.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}\n</style>')
+          p.write_text(s)
+          PY
+      - name: Commit branding
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Use FS icon for site logo and favicon"
+          git push
