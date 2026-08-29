@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>FS</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
 <style>
 :root{--bg:#0c1117;--panel:#151c25;--panel2:#1a2430;--text:#f4f7fb;--muted:#93a0b0;--line:#2b3746;--green:#78e08f;--blue:#6cb6ff;--yellow:#ffc857;--red:#ff6b6b}
@@ -10,11 +12,12 @@
 @media(max-width:900px){.app{grid-template-columns:1fr}.side{height:auto;position:sticky;z-index:10;border-right:0;border-bottom:1px solid var(--line);padding:12px 14px;display:flex;gap:18px;align-items:center}.brand{margin:0}.brand small,.goalBox{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.macros{grid-template-columns:repeat(2,1fr)}.two,.grid{grid-template-columns:1fr}.wide{grid-column:auto}main{padding:22px 16px 45px}.goalrow{grid-template-columns:1fr}}@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight b{font-size:32px}.updated{max-width:140px;text-align:right}}
 .weight-mini-chart{position:relative;width:100%;height:260px}
 @media(max-width:900px){.weight-mini-chart{height:230px}}
+.logo{background:#05070d;overflow:hidden;padding:0}.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="side"><div class="brand"><div class="logo">R</div><div><b>Рекомпозиция</b><small>личный дашборд</small></div></div><div class="nav"><button class="active" data-v="today">Сегодня</button><button data-v="progress">Прогресс</button><button data-v="training">Тренировки</button></div><div class="goalBox"><span>Цель веса</span><b>90,0 кг</b><small id="leftGoal"></small></div></aside>
+<aside class="side"><div class="brand"><div class="logo"><img src="favicon.svg" alt="FS"></div><div><b>Рекомпозиция</b><small>личный дашборд</small></div></div><div class="nav"><button class="active" data-v="today">Сегодня</button><button data-v="progress">Прогресс</button><button data-v="training">Тренировки</button></div><div class="goalBox"><span>Цель веса</span><b>90,0 кг</b><small id="leftGoal"></small></div></aside>
 <main><header><div><p class="eyebrow">МОЙ ПРОГРЕСС</p><h1 id="title">Сегодня</h1></div><div class="updated">Обновлено 29.08.2026 21:24</div></header>
 <section id="today" class="view active"><div class="hero"><div><p class="eyebrow">29 АВГУСТА</p><h2>Текущий день</h2><p class="muted">Показатели пока промежуточные — день ещё не закрыт.</p></div><div class="weight"><span>Вес</span><b>93,9 кг</b><small>−1,6 кг от первого замера</small></div></div><div class="macros" id="macros"></div><div class="two"><article class="card"><div class="row"><div><p class="eyebrow">ВЕС</p><h3>Движение к цели</h3></div><span class="pill">−1,6 кг</span></div><div class="weight-mini-chart"><canvas id="weightMini"></canvas></div></article><article class="card"><p class="eyebrow">ЭНЕРГОБАЛАНС</p><h3>Последние 7 закрытых дней</h3><div class="summary" id="balance7"></div><p class="hint">Граммы жира здесь — только теоретический энергетический эквивалент (ккал ÷ 7700), а не измеренная потеря жировой ткани.</p></article></div></section>
 <section id="progress" class="view"><div class="toolbar"><div><h2>Питание и вес</h2><p class="muted">Вся история в одном месте.</p></div><label>База поддержки <input id="maint" value="2600" type="number" step="50"> ккал</label></div><div class="grid"><article class="card wide"><h3>Вес и цель</h3><canvas id="weightChart"></canvas></article><article class="card"><h3>Калории</h3><canvas id="kcalChart"></canvas></article><article class="card"><h3>Белок</h3><canvas id="proteinChart"></canvas></article><article class="card"><h3>Жиры</h3><canvas id="fatChart"></canvas></article><article class="card"><h3>Углеводы</h3><canvas id="carbsChart"></canvas></article><article class="card wide"><h3>Дни дефицита / профицита</h3><canvas id="balanceChart"></canvas><div class="chips" id="balanceTotals"></div></article><article class="card wide"><h3>Замеры</h3><canvas id="measureChart"></canvas></article></div></section>
