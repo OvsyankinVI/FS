@@ -3,9 +3,8 @@
 <head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>FS</title>
-<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png?v=2">
-<link rel="shortcut icon" type="image/png" href="favicon-64.png?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg?v=3">
+<link rel="shortcut icon" href="./favicon.svg?v=3">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
 <style>
 :root{--bg:#0c1117;--panel:#151c25;--panel2:#1a2430;--text:#f4f7fb;--muted:#93a0b0;--line:#2b3746;--green:#78e08f;--blue:#6cb6ff;--yellow:#ffc857;--red:#ff6b6b}
@@ -18,7 +17,7 @@
 </head>
 <body>
 <div class="app">
-<aside class="side"><div class="brand"><div class="logo"><img src="fs-icon.png?v=2" alt="FS"></div><div><b>Рекомпозиция</b><small>личный дашборд</small></div></div><div class="nav"><button class="active" data-v="today">Сегодня</button><button data-v="progress">Прогресс</button><button data-v="training">Тренировки</button></div><div class="goalBox"><span>Цель веса</span><b>90,0 кг</b><small id="leftGoal"></small></div></aside>
+<aside class="side"><div class="brand"><div class="logo"><img src="./favicon.svg?v=3" alt="FS"></div><div><b>Рекомпозиция</b><small>личный дашборд</small></div></div><div class="nav"><button class="active" data-v="today">Сегодня</button><button data-v="progress">Прогресс</button><button data-v="training">Тренировки</button></div><div class="goalBox"><span>Цель веса</span><b>90,0 кг</b><small id="leftGoal"></small></div></aside>
 <main><header><div><p class="eyebrow">МОЙ ПРОГРЕСС</p><h1 id="title">Сегодня</h1></div><div class="updated">Обновлено 29.08.2026 21:24</div></header>
 <section id="today" class="view active"><div class="hero"><div><p class="eyebrow">29 АВГУСТА</p><h2>Текущий день</h2><p class="muted">Показатели пока промежуточные — день ещё не закрыт.</p></div><div class="weight"><span>Вес</span><b>93,9 кг</b><small>−1,6 кг от первого замера</small></div></div><div class="macros" id="macros"></div><div class="two"><article class="card"><div class="row"><div><p class="eyebrow">ВЕС</p><h3>Движение к цели</h3></div><span class="pill">−1,6 кг</span></div><div class="weight-mini-chart"><canvas id="weightMini"></canvas></div></article><article class="card"><p class="eyebrow">ЭНЕРГОБАЛАНС</p><h3>Последние 7 закрытых дней</h3><div class="summary" id="balance7"></div><p class="hint">Граммы жира здесь — только теоретический энергетический эквивалент (ккал ÷ 7700), а не измеренная потеря жировой ткани.</p></article></div></section>
 <section id="progress" class="view"><div class="toolbar"><div><h2>Питание и вес</h2><p class="muted">Вся история в одном месте.</p></div><label>База поддержки <input id="maint" value="2600" type="number" step="50"> ккал</label></div><div class="grid"><article class="card wide"><h3>Вес и цель</h3><canvas id="weightChart"></canvas></article><article class="card"><h3>Калории</h3><canvas id="kcalChart"></canvas></article><article class="card"><h3>Белок</h3><canvas id="proteinChart"></canvas></article><article class="card"><h3>Жиры</h3><canvas id="fatChart"></canvas></article><article class="card"><h3>Углеводы</h3><canvas id="carbsChart"></canvas></article><article class="card wide"><h3>Дни дефицита / профицита</h3><canvas id="balanceChart"></canvas><div class="chips" id="balanceTotals"></div></article><article class="card wide"><h3>Замеры</h3><canvas id="measureChart"></canvas></article></div></section>
