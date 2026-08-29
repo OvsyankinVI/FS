@@ -1,6 +1,6 @@
 {
-  "updatedAt": "29.08.2026 22:45",
-  "dayOpen": true,
+  "updatedAt": "29.08.2026 — день закрыт",
+  "dayOpen": false,
   "currentDate": "2026-08-29",
   "currentDateLabel": "29 АВГУСТА",
   "maintenanceKcal": 2600,
