@@ -10,21 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch mobile layout and icon references
+      - name: Patch mobile layout, branding and current nutrition totals
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
           p=Path('index.html')
           s=p.read_text()
-          import re
           s=re.sub(r'<link rel="icon"[^>]*>\n?', '', s)
           s=re.sub(r'<link rel="shortcut icon"[^>]*>\n?', '', s)
           s=re.sub(r'<link rel="apple-touch-icon"[^>]*>\n?', '', s)
-          s=s.replace('<title>FS</title>', '<title>FS</title>\n<link rel="icon" type="image/svg+xml" href="./favicon.svg?v=3">\n<link rel="shortcut icon" href="./favicon.svg?v=3">')
-          s=re.sub(r'<div class="logo"><img src="[^"]+" alt="FS"></div>', '<div class="logo"><img src="./favicon.svg?v=3" alt="FS"></div>', s)
+          s=s.replace('<title>FS</title>', '<title>FS</title>\n<link rel="icon" type="image/svg+xml" href="./favicon.svg?v=4">\n<link rel="shortcut icon" href="./favicon.svg?v=4">')
+          s=re.sub(r'<div class="logo"><img src="[^"]+" alt="FS"></div>', '<div class="logo"><img src="./favicon.svg?v=4" alt="FS"></div>', s)
+          s=s.replace("['2026-08-29',93.9,1342,115.1,27.8,149.8]", "['2026-08-29',93.9,1756,139.6,38.8,203.8]")
+          s=re.sub(r'Обновлено 29\.08\.2026 [0-9]{2}:[0-9]{2}', 'Обновлено 29.08.2026 22:29', s)
           s=s.replace('.weight b{font-size:42px}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
-          if '@media(max-width:520px)' in s and '.weight{min-width:130px}' not in s:
-              s=s.replace('@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight b{font-size:32px}.updated{max-width:140px;text-align:right}}', '@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:130px;flex:0 0 130px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0;flex:1}}')
+          s=s.replace('@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:120px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0}}', '@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:130px;flex:0 0 130px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0;flex:1}}')
           s=s.replace('.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05;white-space:nowrap;display:inline-block;line-height:1.05}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
           p.write_text(s)
           PY
@@ -33,5 +34,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --cached --quiet || git commit -m "Fix mobile weight wrapping and FS favicon"
+          git diff --cached --quiet || git commit -m "Sync Aug 29 nutrition totals and mobile fixes"
           git push
