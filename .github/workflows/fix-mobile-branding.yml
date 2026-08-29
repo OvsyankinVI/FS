@@ -1,0 +1,33 @@
+name: Fix mobile layout and branding
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-mobile-branding.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch mobile layout and icon references
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('<link rel="icon" type="image/svg+xml" href="favicon.svg">', '<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png?v=2">\n<link rel="shortcut icon" type="image/png" href="favicon-64.png?v=2">')
+          s=s.replace('<link rel="apple-touch-icon" href="favicon.svg">', '<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">')
+          s=s.replace('<div class="logo"><img src="favicon.svg" alt="FS"></div>', '<div class="logo"><img src="fs-icon.png?v=2" alt="FS"></div>')
+          if '.weight b{white-space:nowrap' not in s:
+              s=s.replace('.weight b{font-size:42px}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
+          s=s.replace('@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight b{font-size:32px}.updated{max-width:140px;text-align:right}}', '@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:120px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0}}')
+          p.write_text(s)
+          PY
+      - name: Commit fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "Fix mobile weight layout and use PNG FS icons"
+          git push
