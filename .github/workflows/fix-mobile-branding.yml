@@ -16,12 +16,16 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          s=s.replace('<link rel="icon" type="image/svg+xml" href="favicon.svg">', '<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png?v=2">\n<link rel="shortcut icon" type="image/png" href="favicon-64.png?v=2">')
-          s=s.replace('<link rel="apple-touch-icon" href="favicon.svg">', '<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">')
-          s=s.replace('<div class="logo"><img src="favicon.svg" alt="FS"></div>', '<div class="logo"><img src="fs-icon.png?v=2" alt="FS"></div>')
-          if '.weight b{white-space:nowrap' not in s:
-              s=s.replace('.weight b{font-size:42px}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
-          s=s.replace('@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight b{font-size:32px}.updated{max-width:140px;text-align:right}}', '@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:120px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0}}')
+          import re
+          s=re.sub(r'<link rel="icon"[^>]*>\n?', '', s)
+          s=re.sub(r'<link rel="shortcut icon"[^>]*>\n?', '', s)
+          s=re.sub(r'<link rel="apple-touch-icon"[^>]*>\n?', '', s)
+          s=s.replace('<title>FS</title>', '<title>FS</title>\n<link rel="icon" type="image/svg+xml" href="./favicon.svg?v=3">\n<link rel="shortcut icon" href="./favicon.svg?v=3">')
+          s=re.sub(r'<div class="logo"><img src="[^"]+" alt="FS"></div>', '<div class="logo"><img src="./favicon.svg?v=3" alt="FS"></div>', s)
+          s=s.replace('.weight b{font-size:42px}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
+          if '@media(max-width:520px)' in s and '.weight{min-width:130px}' not in s:
+              s=s.replace('@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight b{font-size:32px}.updated{max-width:140px;text-align:right}}', '@media(max-width:520px){.macros{grid-template-columns:1fr}.brand b{display:none}.weight{min-width:130px;flex:0 0 130px}.weight b{font-size:30px;white-space:nowrap}.updated{max-width:140px;text-align:right}.hero{gap:14px}.hero>div:first-child{min-width:0;flex:1}}')
+          s=s.replace('.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05;white-space:nowrap;display:inline-block;line-height:1.05}', '.weight b{font-size:42px;white-space:nowrap;display:inline-block;line-height:1.05}')
           p.write_text(s)
           PY
       - name: Commit fixes
@@ -29,5 +33,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --cached --quiet || git commit -m "Fix mobile weight layout and use PNG FS icons"
+          git diff --cached --quiet || git commit -m "Fix mobile weight wrapping and FS favicon"
           git push
