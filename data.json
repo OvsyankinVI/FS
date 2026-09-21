@@ -1,5 +1,5 @@
 {
-  "updatedAt": "21.09.2026 19:32",
+  "updatedAt": "21.09.2026 19:40",
   "dayOpen": true,
   "currentDate": "2026-09-21",
   "currentDateLabel": "21 СЕНТЯБРЯ",
@@ -467,10 +467,10 @@
     [
       "2026-09-21",
       96.4,
-      1677,
-      97.9,
-      50.8,
-      210.8
+      1827,
+      127.9,
+      51.8,
+      215.8
     ]
   ],
   "meals": [
@@ -532,6 +532,16 @@
       "protein": 2.6,
       "fat": 0.6,
       "carbs": 54
+    },
+    {
+      "type": "snack",
+      "name": "Exponenta High-Pro 30",
+      "time": "19:40",
+      "items": "1 бутылка Exponenta High-Pro 30.",
+      "kcal": 150,
+      "protein": 30,
+      "fat": 1,
+      "carbs": 5
     }
   ],
   "measurements": [
