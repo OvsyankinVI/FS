@@ -467,10 +467,10 @@
     [
       "2026-09-21",
       96.4,
-      1064,
-      49.3,
-      40.1,
-      125.8
+      1154,
+      50.8,
+      45.1,
+      135.8
     ]
   ],
   "meals": [
@@ -503,6 +503,15 @@
       "protein": 33.5,
       "fat": 26,
       "carbs": 83
+    },
+    {
+      "type": "snack",
+      "name": "M.Zappa Marzipan",
+      "items": "Ещё 1 конфета M.Zappa Marzipan ≈20 г, оценочно.",
+      "kcal": 90,
+      "protein": 1.5,
+      "fat": 5,
+      "carbs": 10
     }
   ],
   "measurements": [
