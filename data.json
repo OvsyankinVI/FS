@@ -1,6 +1,6 @@
 {
-  "updatedAt": "22.09.2026 19:48",
-  "dayOpen": true,
+  "updatedAt": "22.09.2026 21:10",
+  "dayOpen": false,
   "currentDate": "2026-09-22",
   "currentDateLabel": "22 СЕНТЯБРЯ",
   "maintenanceKcal": 2600,
@@ -475,10 +475,10 @@
     [
       "2026-09-22",
       94.8,
-      2054,
-      135.2,
-      67.5,
-      228.8
+      2362,
+      182.3,
+      73.9,
+      244.2
     ]
   ],
   "meals": [
@@ -521,6 +521,16 @@
       "protein": 68.9,
       "fat": 42.9,
       "carbs": 88.6
+    },
+    {
+      "type": "snack",
+      "name": "Протеин с кокосовым Nemoloko",
+      "time": "21:10",
+      "items": "Primekraft Whey 60 г; кокосовое Nemoloko 200 мл.",
+      "kcal": 308,
+      "protein": 47.1,
+      "fat": 6.4,
+      "carbs": 15.4
     }
   ],
   "measurements": [
