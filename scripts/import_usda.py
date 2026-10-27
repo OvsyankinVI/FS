@@ -13,7 +13,7 @@ NUTRIENTS = {
     "protein": (1003,),
     "fat": (1004,),
     "carbs": (1005,),
-    "energy": (1008, 2047, 2048),
+    "energy": (2048, 2047, 1008),
 }
 def open_csv(archive, filename):
     names = [n for n in archive.namelist() if n.lower().endswith("/" + filename) or n.lower() == filename]
@@ -25,8 +25,8 @@ def parse_archive(path):
     with zipfile.ZipFile(path) as z:
         foods = {}
         for row in open_csv(z, "food.csv"):
-            if row.get("data_type") in ("Foundation", "SR Legacy"):
-                foods[row["fdc_id"]] = {"fdc_id": int(row["fdc_id"]), "data_type": row["data_type"],
+            if row.get("data_type") in ("foundation_food", "sr_legacy_food"):
+                foods[row["fdc_id"]] = {"fdc_id": int(row["fdc_id"]), "data_type": {"foundation_food": "Foundation", "sr_legacy_food": "SR Legacy"}[row["data_type"]],
                     "name_en": row["description"], "name_ru": None, "source_release": os.path.basename(path)}
         vals = {}
         for row in open_csv(z, "food_nutrient.csv"):
