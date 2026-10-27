@@ -64,7 +64,7 @@ fsCreate.addEventListener('submit',async e=>{
   if(error)throw error;
   status.textContent='Продукт сохранён. Его можно найти и добавить в дневник.';
   fsCreate.reset();foodInput.value=name;foodInput.dispatchEvent(new Event('input'));
- }catch(err){status.textContent='Ошибка сохранения: '+err.message}finally{button.disabled=false}
+ }catch(err){status.textContent=err.code==='23505'?'Такой продукт уже есть в личном каталоге. Найди его через поиск, чтобы не создавать дубль.':'Ошибка сохранения: '+err.message}finally{button.disabled=false}
 });
 foodInput.addEventListener('input',()=>{
   clearTimeout(foodTimer);const seq=++foodGeneration,q=foodInput.value.trim();
