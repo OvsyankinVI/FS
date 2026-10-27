@@ -43,9 +43,9 @@ let foodTimer=0,foodGeneration=0;
 const escapeFood=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const showFood=food=>{
   foodSelected.hidden=false;
-  foodSelected.innerHTML='<b>'+escapeFood(food.name)+'</b><p class="hint">'+escapeFood(food.source)+'</p><label class="hint" for="fsFoodGrams">Масса, г</label> <input id="fsFoodGrams" type="number" min="1" max="10000" step="1" value="100"><div id="fsFoodMacros"></div>';
+  foodSelected.innerHTML='<b>'+escapeFood(food.name)+'</b><p class="hint">'+escapeFood(food.source)+'</p><label class="hint" for="fsFoodGrams">Масса, г</label> <input id="fsFoodGrams" type="number" min="1" max="10000" step="1" value="100"><div id="fsFoodMacros"></div>'+(food.fdc_id?'<label class="hint" for="fsMealType">Приём пищи</label> <select id="fsMealType"><option>Завтрак</option><option>Обед</option><option>Ужин</option><option>Перекус</option></select> <button type="button" id="fsSaveFood">Добавить в дневник</button><div id="fsSaveStatus" role="status"></div>':'<p class="hint">Сохранение личных продуктов добавим следующим этапом.</p>');
   const update=()=>{const g=Number(document.getElementById('fsFoodGrams').value);document.getElementById('fsFoodMacros').textContent=Number.isFinite(g)&&g>0&&g<=10000?'Ккал: '+fmt(food.kcal*g/100)+' · Б: '+fmt(food.protein*g/100)+' г · Ж: '+fmt(food.fat*g/100)+' г · У: '+fmt(food.carbs*g/100)+' г':'Введите массу от 1 до 10 000 г'};
-  document.getElementById('fsFoodGrams').addEventListener('input',update);update();
+  document.getElementById('fsFoodGrams').addEventListener('input',update);update();if(food.fdc_id){const save=document.getElementById('fsSaveFood'),status=document.getElementById('fsSaveStatus');let entryKey=crypto.randomUUID();document.getElementById('fsFoodGrams').addEventListener('input',()=>{entryKey=crypto.randomUUID()});document.getElementById('fsMealType').addEventListener('change',()=>{entryKey=crypto.randomUUID()});save.onclick=async()=>{const grams=Number(document.getElementById('fsFoodGrams').value);if(!Number.isFinite(grams)||grams<=0||grams>10000){status.textContent='Укажите массу от 1 до 10 000 г';return}save.disabled=true;status.textContent='Сохраняем…';try{const {error}=await sb.rpc('add_usda_food',{p_fdc_id:food.fdc_id,p_grams:grams,p_meal_type:document.getElementById('fsMealType').value,p_entry_key:entryKey});if(error)throw error;status.textContent='Сохранено! Обновляем дневник…';location.reload()}catch(e){status.textContent='Не удалось сохранить: '+e.message;save.disabled=false}}}
 };
 foodInput.addEventListener('input',()=>{
   clearTimeout(foodTimer);const seq=++foodGeneration,q=foodInput.value.trim();
@@ -58,7 +58,7 @@ foodInput.addEventListener('input',()=>{
       if(safe.length<2){foodStatus.textContent='Уточните запрос';return}
       const [personal,usda]=await Promise.all([
         sb.from('products').select('id,name,serving_basis,kcal,protein_g,fat_g,carbs_g').ilike('name','%'+safe+'%').limit(10),
-        sb.from('usda_foods').select('id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g').or('name_en.ilike.%'+safe+'%,name_ru.ilike.%'+safe+'%').limit(30)
+        sb.from('usda_foods').select('fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g').or('name_en.ilike.%'+safe+'%,name_ru.ilike.%'+safe+'%').limit(30)
       ]);
       if(seq!==foodGeneration)return;
       if(personal.error||usda.error)throw Error(personal.error?.message||usda.error?.message);
@@ -69,7 +69,7 @@ foodInput.addEventListener('input',()=>{
         if(!base||base<=0)continue;
         items.push({name:x.name,source:'Личный продукт',kcal:Number(x.kcal)*100/base,protein:Number(x.protein_g)*100/base,fat:Number(x.fat_g)*100/base,carbs:Number(x.carbs_g)*100/base});
       }
-      for(const x of usda.data||[])items.push({name:x.name_ru||x.name_en,source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)});
+      for(const x of usda.data||[])items.push({fdc_id:x.fdc_id,name:x.name_ru||x.name_en,source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)});
       foodStatus.textContent=items.length?'Найдено: '+items.length+' (первые совпадения)':'Ничего не найдено. Большинство названий USDA пока на английском.';
       for(const food of items){const b=document.createElement('button');b.type='button';b.className='fs-result';const strong=document.createElement('strong');strong.textContent=food.name;const small=document.createElement('small');small.textContent=food.source+' · '+fmt(food.kcal)+' ккал/100 г';b.append(strong,small);b.onclick=()=>showFood(food);foodResults.append(b)}
     }catch(e){if(seq===foodGeneration)foodStatus.textContent='Ошибка поиска: '+e.message}
