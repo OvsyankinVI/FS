@@ -78,12 +78,13 @@ foodInput.addEventListener('input',()=>{
     try{
       const safe=q.replace(/[%_,()]/g,' ').trim();
       if(safe.length<2){foodStatus.textContent='Уточните запрос';return}
-      const [personal,usda,ruTerms]=await Promise.all([
+      const [personal,usda,ruTerms,preferred]=await Promise.all([
         sb.from('products').select('id,name,serving_basis,kcal,protein_g,fat_g,carbs_g').ilike('name','%'+safe+'%').limit(10),
-        sb.from('usda_foods').select('fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g').or('name_en.ilike.%'+safe+'%,name_ru.ilike.%'+safe+'%').limit(30),sb.from('food_search_terms').select('term_ru,usda_food_id,usda_foods(fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g)').ilike('term_ru','%'+safe+'%').limit(30)
+        sb.from('usda_foods').select('fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g').or('name_en.ilike.%'+safe+'%,name_ru.ilike.%'+safe+'%').limit(30),sb.from('food_search_terms').select('term_ru,usda_food_id,usda_foods(fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g)').ilike('term_ru','%'+safe+'%').limit(30),
+        sb.from('preferred_foods').select('term_ru,usda_food_id,usda_foods(fdc_id,name_en,name_ru,kcal_per_100g,protein_per_100g,fat_per_100g,carbs_per_100g)').ilike('term_ru','%'+safe+'%').limit(10)
       ]);
       if(seq!==foodGeneration)return;
-      if(personal.error||usda.error||ruTerms.error)throw Error(personal.error?.message||usda.error?.message||ruTerms.error?.message);
+      if(personal.error||usda.error||ruTerms.error||preferred.error)throw Error(personal.error?.message||usda.error?.message||ruTerms.error?.message||preferred.error?.message);
       const items=[];
       for(const x of personal.data||[]){
         const m=String(x.serving_basis||'').match(/(\d+(?:[.,]\d+)?)\s*г/i);
@@ -91,7 +92,10 @@ foodInput.addEventListener('input',()=>{
         if(!base||base<=0)continue;
         items.push({product_id:x.id,name:x.name,source:'Личный продукт',kcal:Number(x.kcal)*100/base,protein:Number(x.protein_g)*100/base,fat:Number(x.fat_g)*100/base,carbs:Number(x.carbs_g)*100/base});
       }
-      const usdaSeen=new Set();for(const row of ruTerms.data||[]){const x=row.usda_foods;if(!x||usdaSeen.has(x.fdc_id))continue;usdaSeen.add(x.fdc_id);items.push({fdc_id:x.fdc_id,name:row.term_ru+' · '+(x.name_ru||x.name_en),source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)})}for(const x of usda.data||[]){if(usdaSeen.has(x.fdc_id))continue;items.push({fdc_id:x.fdc_id,name:x.name_ru||x.name_en,source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)});}
+      const preferredTerms=new Set((preferred.data||[]).map(x=>String(x.term_ru).toLocaleLowerCase('ru')));
+      const preferredIds=new Set();
+      for(const row of preferred.data||[]){const x=row.usda_foods;if(!x)continue;preferredIds.add(x.fdc_id);items.push({fdc_id:x.fdc_id,name:row.term_ru+' · '+(x.name_ru||x.name_en),source:'USDA · основной вариант · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)});}
+      const usdaSeen=new Set(preferredIds);for(const row of ruTerms.data||[]){const x=row.usda_foods;if(!x||usdaSeen.has(x.fdc_id)||preferredTerms.has(String(row.term_ru).toLocaleLowerCase('ru')))continue;usdaSeen.add(x.fdc_id);items.push({fdc_id:x.fdc_id,name:row.term_ru+' · '+(x.name_ru||x.name_en),source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)})}for(const x of usda.data||[]){if(usdaSeen.has(x.fdc_id))continue;items.push({fdc_id:x.fdc_id,name:x.name_ru||x.name_en,source:'USDA · '+x.name_en,kcal:Number(x.kcal_per_100g),protein:Number(x.protein_per_100g),fat:Number(x.fat_per_100g),carbs:Number(x.carbs_per_100g)});}
       foodStatus.textContent=items.length?'Найдено: '+items.length+' (первые совпадения)':'Ничего не найдено. Большинство названий USDA пока на английском.';
       for(const food of items){const b=document.createElement('button');b.type='button';b.className='fs-result';const strong=document.createElement('strong');strong.textContent=food.name;const small=document.createElement('small');small.textContent=food.source+' · '+fmt(food.kcal)+' ккал/100 г';b.append(strong,small);b.onclick=()=>showFood(food);foodResults.append(b)}
     }catch(e){if(seq===foodGeneration)foodStatus.textContent='Ошибка поиска: '+e.message}
