@@ -98,7 +98,27 @@ const normalizeExerciseName=value=>{
   'подъем ног на пресс':'Подъёмы ног',
   'подъемы ног на пресс':'Подъёмы ног',
   'французский жим':'Французский жим',
-  'французский жим на трицепс':'Французский жим'
+  'французский жим на трицепс':'Французский жим',
+  'face pull':'Face Pull',
+  'жим в смите над головой':'Жим в Смите на плечи',
+  'жим в смите сидя плечи':'Жим в Смите на плечи',
+  'жим в смите сидя на плечи':'Жим в Смите на плечи',
+  'жим штанги в смите сидя':'Жим в Смите на плечи',
+  'махи гантелей в стороны':'Махи гантелями в стороны',
+  'махи гантелями в стороны':'Махи гантелями в стороны',
+  'обратная бабочка задние дельты':'Обратная бабочка (задняя дельта)',
+  'обратная бабочка задняя дельта':'Обратная бабочка (задняя дельта)',
+  'обратная бабочка / задняя дельта':'Обратная бабочка (задняя дельта)',
+  'сгибание гантелей с супинацией':'Сгибания гантелей с супинацией',
+  'сгибания гантелей с супинацией':'Сгибания гантелей с супинацией',
+  'ez-сгибание на бицепс':'Сгибания рук с EZ-грифом',
+  'сгибания рук ez-гриф':'Сгибания рук с EZ-грифом',
+  'разгибание рук с канатом на верхнем блоке':'Разгибание рук с канатом на блоке',
+  'разгибание рук с канатом на трицепс':'Разгибание рук с канатом на блоке',
+  'сведение рук в тренажере бабочка':'Бабочка / Pec Deck',
+  'бабочка / pec deck':'Бабочка / Pec Deck',
+  'скручивания пресс':'Скручивания на пресс',
+  'скручивания на пресс':'Скручивания на пресс'
  };
  return aliases[key]||original;
 };
@@ -107,7 +127,7 @@ const safeText=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 const formatDay=day=>new Date(day+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
 if(workoutQuery.error){workoutStatus.textContent='Не удалось загрузить тренировки: '+workoutQuery.error.message}
 else{
-for(const row of workoutQuery.data||[]){const day=workoutDate(row);if(!day||!row.exercise)continue;const group=String(row.workout_group||'Тренировка').trim();const key=day;if(!workoutGroups.has(key))workoutGroups.set(key,{day,groups:new Set(),exercises:new Map()});const session=workoutGroups.get(key);if(group!=='Тренировка')session.groups.add(group);const exerciseName=normalizeExerciseName(row.exercise);if(!session.exercises.has(exerciseName))session.exercises.set(exerciseName,[]);session.exercises.get(exerciseName).push(row);if(!exerciseHistory.has(exerciseName))exerciseHistory.set(exerciseName,[]);exerciseHistory.get(exerciseName).push({...row,day})}
+for(const row of workoutQuery.data||[]){const day=workoutDate(row);if(!day||!row.exercise||/ошибочная запись|не учитывать/i.test(String(row.exercise)))continue;const group=String(row.workout_group||'Тренировка').trim();const key=day;if(!workoutGroups.has(key))workoutGroups.set(key,{day,groups:new Set(),exercises:new Map()});const session=workoutGroups.get(key);if(group!=='Тренировка')session.groups.add(group);const exerciseName=normalizeExerciseName(row.exercise);if(!session.exercises.has(exerciseName))session.exercises.set(exerciseName,[]);session.exercises.get(exerciseName).push(row);if(!exerciseHistory.has(exerciseName))exerciseHistory.set(exerciseName,[]);exerciseHistory.get(exerciseName).push({...row,day})}
 const sessions=[...workoutGroups.values()].sort((x,y)=>y.day.localeCompare(x.day));workoutStatus.textContent=sessions.length?'Всего тренировок: '+sessions.length:'Тренировки пока не записаны';
 // Compare each exercise with its most recent earlier day, not with a separate same-day block.
 const progressByDay=new Map();
