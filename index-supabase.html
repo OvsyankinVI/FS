@@ -85,12 +85,29 @@ button{font-family:inherit;transition:background .18s ease,border-color .18s eas
 const workoutQuery=await sb.from('workout_sets').select('*').eq('owner_id',user.id).order('occurred_at',{ascending:false}).limit(3000);
 const workoutList=document.getElementById('fsWorkoutList'),workoutStatus=document.getElementById('fsWorkoutStatus'),exerciseCharts=document.getElementById('fsExerciseCharts');
 const workoutDate=row=>{if(row.day)return row.day;const extra=row.source_extra;if(Array.isArray(extra)){const match=extra.find(x=>typeof x==='string'&&/^\\d{2}\\.\\d{2}\\.\\d{4}$/.test(x));if(match){const [d,m,y]=match.split('.');return y+'-'+m+'-'+d}}return row.occurred_at?.slice(0,10)||null};
+// Conservative display-only aliases: do not merge distinct equipment or exercise angles.
+const normalizeExerciseName=value=>{
+ const original=String(value||'').trim().replace(/\\s+/g,' ');
+ const key=original.toLocaleLowerCase('ru-RU').replace(/ё/g,'е').replace(/[«»"'.(),]/g,'').replace(/\\s+/g,' ').trim();
+ const aliases={
+  'жим гантелей на наклонной':'Жим гантелей на наклонной скамье',
+  'жим гантелей на наклонной скамье':'Жим гантелей на наклонной скамье',
+  'жим гантелей под наклоном':'Жим гантелей на наклонной скамье',
+  'подъем ног':'Подъёмы ног',
+  'подъемы ног':'Подъёмы ног',
+  'подъем ног на пресс':'Подъёмы ног',
+  'подъемы ног на пресс':'Подъёмы ног',
+  'французский жим':'Французский жим',
+  'французский жим на трицепс':'Французский жим'
+ };
+ return aliases[key]||original;
+};
 const workoutGroups=new Map(),exerciseHistory=new Map();
 const safeText=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const formatDay=day=>new Date(day+'T12:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
 if(workoutQuery.error){workoutStatus.textContent='Не удалось загрузить тренировки: '+workoutQuery.error.message}
 else{
-for(const row of workoutQuery.data||[]){const day=workoutDate(row);if(!day||!row.exercise)continue;const group=String(row.workout_group||'Тренировка').trim();const key=day;if(!workoutGroups.has(key))workoutGroups.set(key,{day,groups:new Set(),exercises:new Map()});const session=workoutGroups.get(key);if(group!=='Тренировка')session.groups.add(group);if(!session.exercises.has(row.exercise))session.exercises.set(row.exercise,[]);session.exercises.get(row.exercise).push(row);if(!exerciseHistory.has(row.exercise))exerciseHistory.set(row.exercise,[]);exerciseHistory.get(row.exercise).push({...row,day})}
+for(const row of workoutQuery.data||[]){const day=workoutDate(row);if(!day||!row.exercise)continue;const group=String(row.workout_group||'Тренировка').trim();const key=day;if(!workoutGroups.has(key))workoutGroups.set(key,{day,groups:new Set(),exercises:new Map()});const session=workoutGroups.get(key);if(group!=='Тренировка')session.groups.add(group);const exerciseName=normalizeExerciseName(row.exercise);if(!session.exercises.has(exerciseName))session.exercises.set(exerciseName,[]);session.exercises.get(exerciseName).push(row);if(!exerciseHistory.has(exerciseName))exerciseHistory.set(exerciseName,[]);exerciseHistory.get(exerciseName).push({...row,day})}
 const sessions=[...workoutGroups.values()].sort((x,y)=>y.day.localeCompare(x.day));workoutStatus.textContent=sessions.length?'Всего тренировок: '+sessions.length:'Тренировки пока не записаны';
 // Compare each exercise with its most recent earlier day, not with a separate same-day block.
 const progressByDay=new Map();
