@@ -19,6 +19,39 @@
 
 /* FS UI refresh — navigation, buttons, auth and profile */
 button{font-family:inherit;transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:3px}button:disabled{opacity:.55;cursor:wait}button:not(.mealsToggle):not(.profileIcon):not(.nav button){border:1px solid rgba(120,224,143,.35);background:linear-gradient(135deg,rgba(120,224,143,.20),rgba(108,182,255,.10));color:var(--text);border-radius:12px;font-weight:650;box-shadow:0 3px 14px rgba(0,0,0,.12)}button:not(.mealsToggle):not(.profileIcon):hover{border-color:var(--green);box-shadow:0 5px 20px rgba(120,224,143,.12)}button:active{transform:scale(.985)}.profileIcon{width:42px;height:42px;flex:0 0 42px;border-radius:14px;border:1px solid rgba(120,224,143,.36);background:linear-gradient(135deg,#263a3a,#182c38);color:var(--green);font-size:27px;cursor:pointer}.nav button{font-weight:600;line-height:1.3}.nav button.active{color:var(--green);box-shadow:inset 3px 0 var(--green);background:rgba(120,224,143,.10)}.profileCard{max-width:700px;display:grid;gap:18px}.profileCard .fs-create{margin:0}.dangerButton{justify-self:start;border-color:rgba(255,107,107,.5)!important;color:#ff9c9c!important;background:rgba(255,107,107,.08)!important;padding:12px 18px!important}.fs-auth-gate{max-width:440px;margin:9vh auto;padding:32px;background:radial-gradient(circle at 85% 0%,rgba(120,224,143,.13),transparent 45%),var(--panel);border:1px solid var(--line);border-radius:24px;color:var(--text);box-shadow:0 25px 70px rgba(0,0,0,.28)}.fs-auth-gate h1{margin-bottom:12px}.fs-auth-gate p{color:var(--muted);margin-bottom:18px}.fs-auth-gate input{display:block;width:100%;padding:14px;margin:12px 0;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:12px}.fs-auth-gate button{padding:12px 16px;margin:8px 8px 0 0}.fs-auth-gate #fsAuthError{margin-top:16px;color:var(--yellow)}@media(max-width:900px){.side{align-items:flex-start}.nav{overflow-x:auto}.nav button{flex:0 0 auto;font-size:12px;padding:10px}.profileIcon{width:38px;height:38px;flex-basis:38px}}@media(max-width:520px){.fs-auth-gate{margin:6vh 14px;padding:22px}.nav{gap:3px}.nav button{font-size:11px;padding:9px 7px}}
+
+/* Mobile overflow repair: do not allow wide content to expand the app grid */
+@media(max-width:900px){
+  .app{display:block;width:100%;min-width:0;overflow:clip}
+  .side{width:100%;max-width:100vw;min-width:0;position:sticky;top:0;display:flex;align-items:center;gap:8px;padding:10px 12px}
+  .brand{min-width:0;flex:0 0 auto}
+  .nav{min-width:0;flex:1 1 0;max-width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .nav::-webkit-scrollbar{display:none}
+  .nav button{flex:0 0 auto;white-space:nowrap}
+  main{width:100%;max-width:100%;min-width:0;padding:18px 14px calc(38px + env(safe-area-inset-bottom));overflow:hidden}
+  header,.hero,.two,.grid,.card,.macro,.view,.toolbar,.fs-search,.profileCard{min-width:0;max-width:100%}
+  .grid,.two{grid-template-columns:minmax(0,1fr)}
+  .macros{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid .card,.two .card{width:100%}
+  canvas{max-width:100%}
+  .grid canvas{width:100%!important}
+  .mealTable,.fs-results,.fs-selected{max-width:100%;min-width:0}
+  .profileCard{overflow-wrap:anywhere}
+}
+@media(max-width:520px){
+  .side{gap:7px}
+  .brand{flex:0 0 auto}
+  .nav button{font-size:11px;padding:10px 8px}
+  header{gap:8px}
+  .updated{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hero{display:flex;gap:10px}
+  .hero>div:first-child{min-width:0}
+  .hero .weight{flex:0 0 108px;min-width:108px}
+  .macros{gap:10px}
+  .macro{min-width:0}
+  .macro .value{overflow-wrap:anywhere}
+  .fs-search input,.fs-create input{max-width:100%}
+}
 </style>
 </head>
 <body>
