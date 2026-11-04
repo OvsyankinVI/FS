@@ -57,7 +57,7 @@ button{font-family:inherit;transition:background .18s ease,border-color .18s eas
 
 .weightEdit{display:inline-grid;place-items:center;width:30px;height:30px;margin-left:5px;padding:0;border:1px solid rgba(120,224,143,.45);border-radius:9px;color:var(--green);background:rgba(120,224,143,.1);cursor:pointer;font-size:19px}.fsWeightDialog{width:min(420px,calc(100vw - 32px));max-width:100%;padding:24px;border:1px solid var(--line);border-radius:20px;background:#151f29;color:#f4f7fb;box-shadow:0 25px 90px rgba(0,0,0,.6)}.fsWeightDialog::backdrop{background:rgba(0,0,0,.65);backdrop-filter:blur(4px)}.fsWeightDialog form{display:grid;gap:12px}.fsWeightDialog input{padding:13px;border-radius:12px;border:1px solid var(--line);background:#202c39;color:#fff;font-size:18px}.dialogActions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.dialogActions button{padding:12px 15px}#fsWeightStatus{font-size:13px;color:#ff9c9c}
 .fs-refreshing{position:relative;pointer-events:none;opacity:.6;transition:opacity .15s}.fs-refreshing::after{content:'Обновляем…';position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:9px;background:#1a2d31;color:#78e08f;font-size:12px}.fsBuild{display:block;margin-top:4px;font-size:10px;color:var(--green);letter-spacing:.04em}.updated{min-width:0}#fsSaveStatus{min-height:18px}.fsWorkoutList{display:grid;gap:10px}.fsWorkout{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);overflow:hidden}.fsWorkout summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;cursor:pointer;list-style:none}.fsWorkout summary::-webkit-details-marker{display:none}.fsWorkout summary:after{content:'⌄';color:var(--green);font-size:22px}.fsWorkout[open] summary:after{content:'⌃'}.fsWorkout summary strong{font-size:15px}.fsWorkout summary span{font-size:12px;color:var(--muted)}.fsWorkoutExercise{padding:10px 16px 16px;border-top:1px solid var(--line)}.fsWorkoutExercise h4{margin:4px 0 12px}.fsWorkoutTableHead,.fsWorkoutTableRow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}.fsWorkoutTableHead{color:var(--muted)}.fsExerciseControls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}.fsExerciseControls label{display:grid;gap:6px;color:var(--muted);flex:1;min-width:140px}.fsExerciseControls select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text)}@media(max-width:520px){.fsWorkout summary{align-items:flex-start;flex-direction:column}.fsWorkout summary:after{position:absolute;right:30px}.fsWorkout summary{padding-right:45px}.fsWorkout{position:relative}}
-.fsExerciseCharts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}.fsExerciseChartCard{min-width:0;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.fsExerciseChartCard h4{margin:0 0 6px;font-size:16px}.fsExerciseChartCard .hint{margin:0 0 12px}.fsExerciseChartCard canvas{max-width:100%}@media(max-width:700px){.fsExerciseCharts{grid-template-columns:minmax(0,1fr)}}
+.fsGroupCharts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.fsGroupChartCard{min-width:0;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.fsGroupChartCard h4{margin:0 0 8px}.fsGroupChartCanvas{height:320px;position:relative}@media(max-width:850px){.fsGroupCharts{grid-template-columns:1fr}.fsGroupChartCanvas{height:300px}}\n.fsExerciseCharts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}.fsExerciseChartCard{min-width:0;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.fsExerciseChartCard h4{margin:0 0 6px;font-size:16px}.fsExerciseChartCard .hint{margin:0 0 12px}.fsExerciseChartCard canvas{max-width:100%}@media(max-width:700px){.fsExerciseCharts{grid-template-columns:minmax(0,1fr)}}
 .fsProgressNote{margin:12px 0 2px;padding:10px 12px;border-radius:11px;font-size:12px;line-height:1.5;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)}.fsProgressUp{color:#78e08f;border-color:rgba(120,224,143,.22)}.fsProgressDown{color:#ffbb84;border-color:rgba(255,187,132,.22)}.fsProgressEven{color:var(--muted)}
 .fsProgressMetrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:9px 0 4px}.fsProgressMetric{display:flex;flex-direction:column;gap:4px;padding:9px;border:1px solid var(--line);border-radius:10px;min-width:0}.fsProgressMetric span{font-size:11px;color:var(--muted)}.fsProgressMetric strong{font-size:14px}.fsProgressMetric small{font-size:10px;color:var(--muted)}.fsProgressPositive{color:#78e08f}.fsProgressNegative{color:#ffbb84}.fsProgressNeutral{color:var(--muted)}@media(max-width:440px){.fsProgressMetrics{grid-template-columns:1fr}}
 .fsDishCatalog{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:10px 0}.fsDishCatalog label{flex:1;min-width:200px}.fsDishCatalog input{width:100%;box-sizing:border-box;margin:7px 0;padding:10px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px}.fsDishCatalog select{width:100%;padding:10px;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px}.fsDishCatalog p{width:100%;margin:0}.fsDishList{display:grid;gap:10px;margin-top:12px}.fsDishCard{padding:12px;border:1px solid var(--line);border-radius:12px}.fsDishCard h4{margin:0 0 6px}.fsDishCard .hint{margin:6px 0}.fsDishActions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.fsDishActions button,.fsDishes button{padding:9px 12px}.fsDishItem{display:grid;grid-template-columns:2fr repeat(5,minmax(0,1fr)) auto;gap:6px;margin:10px 0;align-items:end}.fsDishItem label{font-size:11px}.fsDishItem input{width:100%;min-width:0;padding:9px 5px;box-sizing:border-box;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px}.fsDishItem button{padding:9px!important}@media(max-width:700px){.fsDishItem{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px;border:1px solid var(--line);border-radius:10px}.fsDishItem label:first-child{grid-column:1/-1}.fsDishItem button{grid-column:3}}
@@ -86,7 +86,7 @@ button{font-family:inherit;transition:background .18s ease,border-color .18s eas
 </section>
 <section id="progress" class="view"><div class="toolbar"><div><h2>Прогресс КБЖУ и веса</h2><p class="muted">Вся история в одном месте.</p></div><label>База поддержки <input id="maint" type="number" step="50"> ккал</label></div><div class="grid"><article class="card wide"><h3>Вес и цель</h3><canvas id="weightChart"></canvas></article><article class="card"><h3>Калории</h3><canvas id="kcalChart"></canvas></article><article class="card"><h3>Белок</h3><canvas id="proteinChart"></canvas></article><article class="card"><h3>Жиры</h3><canvas id="fatChart"></canvas></article><article class="card"><h3>Углеводы</h3><canvas id="carbsChart"></canvas></article><article class="card wide"><h3>Дни дефицита / профицита</h3><canvas id="balanceChart"></canvas><div class="chips" id="balanceTotals"></div></article></div></section>
 <section id="training" class="view"><div class="toolbar"><div><h2>Дневник тренировок</h2><p class="muted">Все тренировки, упражнения и результаты по датам.</p></div></div><article class="card"><h3>Тренировки</h3><p class="hint" id="fsWorkoutStatus">Загружаем историю…</p><div id="fsWorkoutList" class="fsWorkoutList"></div></article></section>
-<section id="trainingProgress" class="view"><div class="toolbar"><div><h2>Прогресс тренировок</h2><p class="muted">Замеры тела и динамика упражнений.</p></div></div><div class="grid"><article class="card wide"><h3>Замеры</h3><canvas id="measureChart"></canvas></article><article class="card wide"><h3>Прогресс упражнений</h3><div class="fsExerciseControls"><label>Упражнение <select id="fsExerciseSelect"></select></label><label>Показатель <select id="fsExerciseMetric"><option value="e1rm">Расчётный 1ПМ</option><option value="rirStrength">Оценочная сила с RIR</option><option value="weight">Рабочий вес</option><option value="reps">Повторения</option></select></label></div><p class="hint" id="fsExerciseStatus"></p><canvas id="fsExerciseChart"></canvas></article></div></section>
+<section id="trainingProgress" class="view"><div class="toolbar"><div><h2>Прогресс тренировок</h2><p class="muted">Замеры тела и динамика упражнений.</p></div></div><div class="grid"><article class="card wide"><h3>Замеры</h3><canvas id="measureChart"></canvas></article><article class="card wide"><h3>Прогресс по тренировкам</h3><p class="hint">Каждая линия — упражнение. 100% — первый корректный рабочий результат; нажмите на название, чтобы скрыть или показать линию.</p><div class="fsExerciseControls"><label>Период <select id="fsGroupPeriod"><option value="all">Всё время</option><option value="30">30 дней</option><option value="90">3 месяца</option><option value="180">6 месяцев</option></select></label><label>Показатель <select id="fsGroupMetric"><option value="strength">Прогресс силы, %</option><option value="weight">Рабочий вес, %</option><option value="reps">Повторения, %</option><option value="volume">Объём, %</option></select></label></div><div id="fsGroupCharts" class="fsGroupCharts"></div></article></div></section>
 <section id="profile" class="view"><div class="toolbar"><div><h2>Профиль</h2><p class="muted">Личные настройки дневника</p></div></div><article class="card profileCard"><h3>Настройки профиля</h3><form id="fsProfileForm"><div class="fs-create-grid"><label>Фамилия<input id="fsLastName" maxlength="80" autocomplete="family-name"></label><label>Имя<input id="fsFirstName" maxlength="80" autocomplete="given-name"></label><label>Отчество<input id="fsMiddleName" maxlength="80"></label><label>Имя для Джарвиса<input id="fsVoiceName" maxlength="40" placeholder="Например, Влад"></label><label>Целевой вес, кг<input id="fsTargetWeight" type="number" min="30" max="400" step="0.1" required></label><label>Калории, ккал<input id="fsTargetKcal" type="number" min="500" max="10000" required></label><label>Белки, г<input id="fsTargetProtein" type="number" min="0" max="1000" required></label><label>Жиры, г<input id="fsTargetFat" type="number" min="0" max="1000" required></label><label>Углеводы, г<input id="fsTargetCarbs" type="number" min="0" max="2000" required></label></div><button id="fsProfileSave" type="submit">Сохранить настройки</button><p id="fsProfileStatus" role="status"></p></form><button id="fsProfileLogout" class="dangerButton" type="button">Выйти из аккаунта</button></article></section>
 </main></div>
 <script>
@@ -153,38 +153,80 @@ metric('Рабочий вес',comparison.previous.weight,comparison.current.wei
 metric('Повторения',comparison.previous.reps,comparison.current.reps,'');
 metric('RIR',comparison.previous.rir,comparison.current.rir,'',false);
 box.append(metrics)}const notes=[...new Set(sets.map(x=>x.original_text).filter(Boolean))];if(notes.length){const p=document.createElement('p');p.className='hint';p.textContent=notes.join(' · ');box.append(p)}details.append(box)}workoutList.append(details)}
-const exerciseSelect=document.getElementById('fsExerciseSelect'),exerciseMetric=document.getElementById('fsExerciseMetric'),exerciseStatus=document.getElementById('fsExerciseStatus');
-const exerciseNames=[...exerciseHistory.keys()].sort((a,b)=>a.localeCompare(b,'ru'));
-const isBodyweightExercise=name=>/отжиман|подтягиван|пресс|скручиван|планк|подъ[её]м(?:ы|ов)? ног|подъ[её]м(?:ы|ов)? колен|берпи|брусь|приседан(?:ия|ий)? без веса/i.test(name);
-exerciseSelect.replaceChildren(...exerciseNames.map(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;return option}));
-let exerciseChart=null;
-function renderExerciseChart(){
-  const name=exerciseSelect.value,metric=exerciseMetric.value,rows=exerciseHistory.get(name)||[],perDay=new Map();
-  for(const row of rows){
-    const weight=row.weight_kg==null?NaN:Number(row.weight_kg);
-    const reps=row.reps==null?NaN:Number(row.reps);
-    // Do not create false zero points for missing measurements.
-    if(!Number.isFinite(reps)||reps<=0)continue;
-    if(metric!=='reps'&&(!Number.isFinite(weight)||weight<=0))continue;
-    const working=String(row.is_working_set??'').toLowerCase();
-    if(working==='false'||working==='нет'||working==='0'||working.includes('разминк'))continue;
-    const rir=metric==='rirStrength'?parseRir(row.rir):null;
-    if(metric==='rirStrength'&&rir===null)continue;
-    const score=metric==='weight'?weight:metric==='reps'?reps:metric==='rirStrength'?weight*(1+(reps+rir)/30):weight*(1+reps/30);
-    const prev=perDay.get(row.day);
-    if(!prev||score>prev.score)perDay.set(row.day,{score,weight,reps,rir});
-  }
-  const values=[...perDay].sort((a,b)=>a[0].localeCompare(b[0]));
-  if(exerciseChart){exerciseChart.destroy();exerciseChart=null}
-  if(!values.length){exerciseStatus.textContent=metric==='rirStrength'?'Нет рабочих подходов с корректными весом, повторениями и RIR. Выберите другой показатель.':metric==='reps'?'Нет подходов с корректным количеством повторений.':'Нет подходов с корректными весом и повторениями. Для упражнений с собственным весом выберите «Повторения».';return}
-  exerciseStatus.textContent=metric==='rirStrength'?'Лучший подход за день по формуле вес × (1 + (повторения + RIR) / 30). Учитываются только подходы с RIR.':metric==='reps'?'Максимальное число повторений в одном подходе за день. Подходы без указанного веса тоже учитываются.':'Лучший рабочий подход за день. Пустые и нулевые значения исключены.';
-  const label=metric==='weight'?'Рабочий вес, кг':metric==='reps'?'Повторения':metric==='rirStrength'?'Оценочная сила с RIR, кг':'Расчётный 1ПМ, кг';
-  exerciseChart=new Chart(document.getElementById('fsExerciseChart'),{type:'line',data:{labels:values.map(x=>x[0].slice(8)+'.'+x[0].slice(5,7)),datasets:[{label,data:values.map(x=>Math.round(x[1].score*10)/10),borderColor:'#78e08f',backgroundColor:'rgba(120,224,143,.12)',tension:.25,fill:true,pointRadius:4,spanGaps:false}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false},tooltip:{callbacks:{afterLabel:context=>{const set=values[context.dataIndex]?.[1];return set?'Подход: '+(Number.isFinite(set.weight)&&set.weight>0?set.weight+' кг × ':'')+set.reps+' повт.'+(metric==='rirStrength'?' · RIR '+set.rir:''):''}}}},scales:{x:{ticks:{color:'#93a0b0'}},y:{beginAtZero:false,ticks:{color:'#93a0b0'}}}}});
+const groupRoot=document.getElementById('fsGroupCharts');
+const groupPeriod=document.getElementById('fsGroupPeriod'),groupMetric=document.getElementById('fsGroupMetric');
+const groupDefs=[
+ {key:'shoulders',title:'Плечи',test:/плеч|дельт|махи|разведен|обратная бабочка|жим в смите|face pull/i},
+ {key:'chest',title:'Грудь + трицепс',test:/груд|наклонн|сведени|разводк|трицепс|французск|разгибани|pec deck|бабочка/i},
+ {key:'back',title:'Спина + бицепс',test:/спин|бицепс|тяга|подтягиван|сгибани|ez-гриф|молотк/i},
+ {key:'abs',title:'Пресс',test:/пресс|скручиван|подъ[её]м.*ног|подъ[её]м.*колен|планк/i}
+];
+const isBodyweightGroup=name=>/отжиман|подтягиван|пресс|скручиван|планк|подъ[её]м.*ног|подъ[её]м.*колен|берпи|брусь|приседан.*без веса/i.test(name);
+const chartInstances=new Map();
+function groupFor(name){
+ // More specific matches take precedence (e.g. reverse butterfly is shoulders, not chest).
+ if(/обратная бабочка|задн.*дельт|face pull|махи|плеч|жим в смите/i.test(name))return 'shoulders';
+ if(/пресс|скручиван|подъ[её]м.*ног|подъ[её]м.*колен|планк/i.test(name))return 'abs';
+ if(/бицепс|тяга|спин|подтягиван|сгибани|ez-гриф|молотк/i.test(name))return 'back';
+ if(/груд|наклонн|сведени|разводк|трицепс|французск|разгибани|pec deck|бабочка|жим/i.test(name))return 'chest';
+ return null;
 }
-exerciseSelect.addEventListener('change',()=>{if(isBodyweightExercise(exerciseSelect.value))exerciseMetric.value='reps';renderExerciseChart()});
-if(isBodyweightExercise(exerciseSelect.value))exerciseMetric.value='reps';
-exerciseMetric.addEventListener('change',renderExerciseChart);
-renderExerciseChart();
+function groupScore(row,metric,bodyweight){
+ const reps=Number(row.reps),weight=Number(row.weight_kg);
+ if(row.reps==null||!Number.isFinite(reps)||reps<=0)return null;
+ const working=String(row.is_working_set??'').toLowerCase();
+ if(working==='false'||working==='нет'||working==='0'||working.includes('разминк'))return null;
+ if(bodyweight)return metric==='weight'?null:reps;
+ if(row.weight_kg==null||!Number.isFinite(weight)||weight<=0)return null;
+ if(metric==='reps')return reps;
+ if(metric==='weight')return weight;
+ if(metric==='volume')return weight*reps;
+ const rir=parseRir(row.rir);
+ // When RIR is missing, use the same e1RM approximation without RIR as existing chart.
+ return weight*(1+(reps+(rir??0))/30);
+}
+function renderGroupCharts(){
+ for(const chart of chartInstances.values())chart.destroy();chartInstances.clear();groupRoot.replaceChildren();
+ const metric=groupMetric.value,period=groupPeriod.value;
+ const today=new Date(),cutoff=period==='all'?null:new Date(today.getTime()-Number(period)*86400000).toISOString().slice(0,10);
+ const palette=['#78e08f','#6cb6ff','#ffc857','#c69cff','#ff8c82','#59d5cb','#f4a7cf','#b3cf70'];
+ for(const group of groupDefs){
+  const card=document.createElement('section');card.className='fsGroupChartCard';
+  const title=document.createElement('h4');title.textContent=group.title;card.append(title);
+  const all=[];
+  for(const [name,rows] of exerciseHistory){
+   if(groupFor(name)!==group.key)continue;
+   const best=new Map(),bodyweight=isBodyweightGroup(name);
+   for(const row of rows){
+    const score=groupScore(row,metric,bodyweight);
+    if(score===null||!row.day)continue;
+    const prev=best.get(row.day);
+    if(!prev||score>prev.score)best.set(row.day,{score,row});
+   }
+   const points=[...best].sort((a,b)=>a[0].localeCompare(b[0]));
+   if(!points.length)continue;
+   const baseline=points[0][1].score;
+   if(!(baseline>0))continue;
+   all.push({name,points:points.filter(x=>!cutoff||x[0]>=cutoff),baseline});
+  }
+  const dates=[...new Set(all.flatMap(x=>x.points.map(p=>p[0])))].sort();
+  if(!dates.length){const p=document.createElement('p');p.className='hint';p.textContent='Пока нет данных за выбранный период.';card.append(p);groupRoot.append(card);continue}
+  const summary=document.createElement('p');summary.className='hint';
+  const changes=all.filter(x=>x.points.length).map(x=>({name:x.name,pct:(x.points.at(-1)[1].score/x.baseline-1)*100}));
+  summary.textContent=changes.map(x=>x.name+': '+(x.pct>=0?'+':'')+x.pct.toFixed(1)+'%').join(' · ');
+  card.append(summary);
+  const wrap=document.createElement('div');wrap.className='fsGroupChartCanvas';const canvas=document.createElement('canvas');wrap.append(canvas);card.append(wrap);groupRoot.append(card);
+  const datasets=all.filter(x=>x.points.length).map((x,i)=>{
+   const map=new Map(x.points);
+   return {label:x.name,data:dates.map(d=>map.has(d)?Math.round(map.get(d).score/x.baseline*1000)/10:null),borderColor:palette[i%palette.length],backgroundColor:palette[i%palette.length],tension:.25,pointRadius:3,pointHoverRadius:6,spanGaps:false,borderWidth:2,metadata:map};
+  });
+  const chart=new Chart(canvas,{type:'line',data:{labels:dates.map(d=>d.slice(8)+'.'+d.slice(5,7)),datasets},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},plugins:{legend:{display:true,position:'bottom',labels:{color:'#b8c5d5',boxWidth:12}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%',afterLabel:ctx=>{const date=dates[ctx.dataIndex],row=ctx.dataset.metadata.get(date)?.row;if(!row)return '';return 'Подход: '+(row.weight_kg==null?'':row.weight_kg+' кг × ')+row.reps+' повт.'+(row.rir==null?'':' · RIR '+row.rir)}}}},scales:{x:{ticks:{color:'#93a0b0',maxTicksLimit:7}},y:{ticks:{color:'#93a0b0',callback:v=>v+'%'},grid:{color:'rgba(255,255,255,.06)'}}}}});
+  chartInstances.set(group.key,chart);
+ }
+}
+groupPeriod.addEventListener('change',renderGroupCharts);
+groupMetric.addEventListener('change',renderGroupCharts);
+renderGroupCharts();
 }
 const profileMeta=user.user_metadata||{};const {data:voiceProfile}=await sb.from('voice_profiles').select('display_name').eq('owner_id',user.id).maybeSingle();document.getElementById('fsVoiceName').value=voiceProfile?.display_name||'';for(const [id,key] of [['fsFirstName','first_name'],['fsLastName','last_name'],['fsMiddleName','middle_name']])document.getElementById(id).value=profileMeta[key]||'';for(const [id,key] of [['fsTargetWeight','weight'],['fsTargetKcal','kcal'],['fsTargetProtein','protein'],['fsTargetFat','fat'],['fsTargetCarbs','carbs']])document.getElementById(id).value=Array.isArray(config.target[key])?config.target[key][0]:config.target[key];document.querySelector('.goalBox b').textContent=Number(config.target.weight).toLocaleString('ru-RU')+' кг';
 document.getElementById('fsProfileForm').addEventListener('submit',async event=>{event.preventDefault();const btn=document.getElementById('fsProfileSave'),status=document.getElementById('fsProfileStatus');btn.disabled=true;btn.textContent='Сохраняем…';status.textContent='';try{const targetNext={...config.target};for(const [id,key] of [['fsTargetWeight','weight'],['fsTargetKcal','kcal'],['fsTargetProtein','protein'],['fsTargetFat','fat'],['fsTargetCarbs','carbs']]){const value=Number(document.getElementById(id).value);if(!Number.isFinite(value))throw Error('Проверь значения целей');targetNext[key]=key==='weight'?value:[value,value]}const voiceName=document.getElementById('fsVoiceName').value.trim();if(voiceName&&!/^[А-Яа-яЁёA-Za-z]{2,40}$/.test(voiceName))throw Error('Имя для Джарвиса должно содержать от 2 до 40 букв');const names={first_name:document.getElementById('fsFirstName').value.trim(),last_name:document.getElementById('fsLastName').value.trim(),middle_name:document.getElementById('fsMiddleName').value.trim()};const {error:metaError}=await sb.auth.updateUser({data:names});if(metaError)throw metaError;const {data:updated,error:configError}=await sb.from('dashboard_config').update({config:{...config,target:targetNext}}).eq('owner_id',user.id).select('owner_id');if(configError)throw configError;if(!updated?.length)throw Error('Нет доступа к настройкам дневника');if(voiceName){const {error:voiceError}=await sb.from('voice_profiles').upsert({owner_id:user.id,display_name:voiceName,enabled:true});if(voiceError)throw voiceError;}config.target=targetNext;document.querySelector('.goalBox b').textContent=Number(targetNext.weight).toLocaleString('ru-RU')+' кг';status.textContent='Настройки сохранены. Для обновления графиков перезагрузи страницу.'}catch(e){status.textContent='Ошибка: '+e.message}finally{btn.disabled=false;btn.textContent='Сохранить настройки'}});
